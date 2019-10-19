@@ -2,6 +2,7 @@ package sorters;
 
 public class MergeSorter extends AbstractSorter {
   
+  @Override
   public void sort(int[] array) {
     
     if (array.length > 1) {
