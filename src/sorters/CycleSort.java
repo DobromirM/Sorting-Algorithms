@@ -10,20 +10,11 @@ public class CycleSort extends AbstractSorter {
       int currentItem = array[i];
       int destinationPosition = i;
       
-      for (int j = i + 1; j < array.length; j++) {
-        
-        if (array[j] < currentItem) {
-          destinationPosition = destinationPosition + 1;
-        }
-      }
+      destinationPosition = getDestinationPosition(array, i, currentItem, destinationPosition);
       
-      if (destinationPosition == i) {
-      }
-      else {
+      if (destinationPosition != i) {
         
-        while (currentItem == array[destinationPosition]) {
-          destinationPosition = destinationPosition + 1;
-        }
+        destinationPosition = checkForDuplicates(array, currentItem, destinationPosition);
         
         int temp = array[destinationPosition];
         array[destinationPosition] = currentItem;
@@ -32,16 +23,9 @@ public class CycleSort extends AbstractSorter {
         while (i != destinationPosition) {
           destinationPosition = i;
           
-          for (int j = i + 1; j < array.length; j++) {
-            
-            if (array[j] < currentItem) {
-              destinationPosition = destinationPosition + 1;
-            }
-          }
+          destinationPosition = getDestinationPosition(array, i, currentItem, destinationPosition);
           
-          while (currentItem == array[destinationPosition]) {
-            destinationPosition = destinationPosition + 1;
-          }
+          destinationPosition = checkForDuplicates(array, currentItem, destinationPosition);
           
           temp = array[destinationPosition];
           array[destinationPosition] = currentItem;
@@ -49,6 +33,23 @@ public class CycleSort extends AbstractSorter {
         }
       }
     }
+  }
+  
+  private int getDestinationPosition(int[] array, int i, int currentItem, int destinationPosition) {
+    for (int j = i + 1; j < array.length; j++) {
+      
+      if (array[j] < currentItem) {
+        destinationPosition = destinationPosition + 1;
+      }
+    }
+    return destinationPosition;
+  }
+  
+  private int checkForDuplicates(int[] array, int currentItem, int destinationPosition) {
+    while (currentItem == array[destinationPosition]) {
+      destinationPosition = destinationPosition + 1;
+    }
+    return destinationPosition;
   }
 }
 
